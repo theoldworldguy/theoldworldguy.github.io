@@ -19,18 +19,18 @@ apt update && apt upgrade
 
 Create the root directory for each website.
 ```bash
-mkdir -p /var/www/nastray.com
-mkdir -p /var/www/test.nastray.com
-mkdir -p /var/www/test.fabricatedfoundations.com
-mkdir -p /var/www/fabricatedfoundations.com
+mkdir -p /var/www/site1.com
+mkdir -p /var/www/site2.com
+mkdir -p /var/www/site3.com
+mkdir -p /var/www/site4.com
 ```
 
 Create a configuration file for each site.
 ```bash
-nano /etc/nginx/sites-available/nastray.com
-nano /etc/nginx/sites-available/test.nastray.com
-nano /etc/nginx/sites-available/fabricatedfoundations.com
-nano /etc/nginx/sites-available/test.fabricatedfoundations.com
+nano /etc/nginx/sites-available/site1.com
+nano /etc/nginx/sites-available/site2.com
+nano /etc/nginx/sites-available/site3.com
+nano /etc/nginx/sites-available/site4.com
 ```
 
 Add the following to each file changing the server name and root for each site.
@@ -39,9 +39,9 @@ server {
     listen 80;
     listen [::]:80;
 
-    server_name www.nastray.com nastray.com;
+    server_name www.site1.com site1.com;
 
-    root /var/www/nastray.com;
+    root /var/www/site1.com;
     index index.html;
 
     location / {
@@ -52,18 +52,18 @@ server {
 
 Create symbolic links to enable the sites.
 ```bash
-ln -s /etc/nginx/sites-available/nastray.com /etc/nginx/sites-enabled/
-ln -s /etc/nginx/sites-available/test.nastray.com /etc/nginx/sites-enabled/
-ln -s /etc/nginx/sites-available/fabricatedfoundations.com /etc/nginx/sites-enabled/
-ln -s /etc/nginx/sites-available/test.fabricatedfoundations.com /etc/nginx/sites-enabled/
+ln -s /etc/nginx/sites-available/site1.com /etc/nginx/sites-enabled/
+ln -s /etc/nginx/sites-available/site2.com /etc/nginx/sites-enabled/
+ln -s /etc/nginx/sites-available/site3.com /etc/nginx/sites-enabled/
+ln -s /etc/nginx/sites-available/site4.com /etc/nginx/sites-enabled/
 ```
 
 Create a placeholder HTML file to identify each site.
 ```bash
-echo "nastray.com" > /var/www/nastray.com/index.html
-echo "test.nastray.com" > /var/www/test.nastray.com/index.html
-echo "fabricatedfoundations.com" > /var/www/fabricatedfoundations.com/index.html
-echo "test.fabricatedfoundations.com" > /var/www/test.fabricatedfoundations.com/index.html
+echo "nastray.com" > /var/www/site1.com/index.html
+echo "test.nastray.com" > /var/www/site2.com/index.html
+echo "fabricatedfoundations.com" > /var/www/site3.com/index.html
+echo "test.fabricatedfoundations.com" > /var/www/site4.com/index.html
 ```
 
 Restart NGINX.
@@ -91,7 +91,7 @@ Copy and paste this into the configuration file, make necessary changes if neede
 server {
     listen 80;
     
-    server_name nastray.com;
+    server_name site1.com;
 
     location / {
         proxy_pass http://192.168.1.44:80;
@@ -105,7 +105,7 @@ server {
 server {
     listen 80;
 
-    server_name test.nastray.com;
+    server_name site2.com;
 
     location / {
         proxy_pass http://192.168.1.44:80;
@@ -119,7 +119,7 @@ server {
 server {
     listen 80;
 
-    server_name fabricatedfoundations.com;
+    server_name site3.com;
 
     location / {
         proxy_pass http://192.168.1.44:80;
@@ -133,7 +133,7 @@ server {
 server {
     listen 80;
 
-    server_name test.fabricatedfoundations.com;
+    server_name site4.com;
 
     location / {
         proxy_pass http://192.168.1.44:80;
