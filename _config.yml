@@ -31,7 +31,7 @@ github_username:  theoldworldguy
 # Build settings
 
 #theme: minima
-theme: just-the-docs
+remote-theme: just-the-docs
 
 
 plugins:
